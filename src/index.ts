@@ -55,12 +55,11 @@ export default class Appoptics {
     })
       .then(result => {
         this.measurements = []
-        console.log(result)
         return result
       })
       .catch(err => {
         measurements.forEach(m => this.measurements.push(m))
-        console.log(err)
+        console.log('Appoptics', err)
       })
   }
 }
