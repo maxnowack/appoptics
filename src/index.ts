@@ -41,6 +41,7 @@ export default class Appoptics {
   }
   public flush() {
     const measurements = this.measurements
+    if (measurements.length <= 0) return
     this.measurements = []
     return send({
       measurements,
