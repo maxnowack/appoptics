@@ -1,11 +1,12 @@
-import send, { Measurement, defaultEndpoint } from './send'
-export { default as send, Measurement } from './send'
+import send, { Measurement, Tags, defaultEndpoint } from './send'
+export { default as send, Measurement, Tags } from './send'
 
 export interface Options {
   email?: string
   token: string
   endpoint: string
   interval: number
+  tags: Tags
 }
 
 export default class Appoptics {
@@ -19,8 +20,9 @@ export default class Appoptics {
     token,
     endpoint = defaultEndpoint,
     interval = 10000,
+    tags = {},
   }: Options) {
-    this.options = { email, token, endpoint, interval }
+    this.options = { email, token, endpoint, interval, tags }
   }
 
   public measure(measurement: Measurement) {
@@ -45,6 +47,7 @@ export default class Appoptics {
     this.measurements = []
     return send({
       measurements,
+      tags: this.options.tags,
       ...(this.options.email ? { email: this.options.email } : {}),
       token: this.options.token,
       endpoint: this.options.endpoint,
