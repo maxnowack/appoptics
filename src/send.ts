@@ -22,7 +22,6 @@ export interface Measurement {
 export interface Options {
   measurements: Measurement[]
   tags?: Tag[]
-  email: string
   token: string
   endpoint: string
 }
@@ -30,7 +29,6 @@ export interface Options {
 export default ({
   measurements = [],
   tags = [],
-  email,
   token,
   endpoint = defaultEndpoint,
 }: Options) => fetch(endpoint, {
@@ -40,7 +38,7 @@ export default ({
       ...tags,
       measurements,
     }),
-    Authorization: 'Basic ' + new Buffer(`${email}:${token}`).toString('base64'),
+    Authorization: 'Basic ' + new Buffer(`${token}:`).toString('base64'),
     'Content-Type': 'application/json; charset=utf-8',
     'User-Agent': 'appoptics-node',
   },

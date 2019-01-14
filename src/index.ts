@@ -2,7 +2,7 @@ import send, { Measurement, defaultEndpoint } from './send'
 export { default as send, Measurement } from './send'
 
 export interface Options {
-  email: string
+  email?: string
   token: string
   endpoint: string
   interval: number
@@ -44,7 +44,7 @@ export default class Appoptics {
     this.measurements = []
     return send({
       measurements,
-      email: this.options.email,
+      ...(this.options.email ? { email: this.options.email } : {}),
       token: this.options.token,
       endpoint: this.options.endpoint,
     })
