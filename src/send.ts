@@ -35,7 +35,10 @@ export default ({
   method: 'POST',
   body: JSON.stringify({
     ...(Object.keys(tags).length ? { tags } : {}),
-    measurements,
+    measurements: measurements.map(m => ({
+      ...m,
+      ...(m.time ? { time: m.time.getTime() / 1000 } : {}),
+    })),
   }),
   headers: {
     Authorization: 'Basic ' + Buffer.from(`${token}:`).toString('base64'),
