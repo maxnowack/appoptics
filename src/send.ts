@@ -42,10 +42,4 @@ export default ({
     'Content-Type': 'application/json; charset=utf-8',
     'User-Agent': 'appoptics-node',
   },
-}).then(r => {
-  console.log(JSON.stringify({
-    ...(tags.length ? { tags } : {}),
-    measurements,
-  }))
-  return r.json()
-})
+}).then(r => r.json())
