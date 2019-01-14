@@ -41,10 +41,10 @@ export default class Appoptics {
     if (this.intervalId) clearInterval(this.intervalId)
     this.started = false
   }
-  public flush() {
+  public async flush() {
     const measurements = this.measurements
     if (measurements.length <= 0) return
-    this.measurements = []
+
     return send({
       measurements,
       tags: this.options.tags,
@@ -52,5 +52,14 @@ export default class Appoptics {
       token: this.options.token,
       endpoint: this.options.endpoint,
     })
+      .then(result => {
+        this.measurements = []
+        console.log(result)
+        return result
+      })
+      .catch(err => {
+        measurements.forEach(m => this.measurements.push(m))
+        console.log(err)
+      })
   }
 }
