@@ -34,6 +34,7 @@ export default class Appoptics {
   }
 
   public start() {
+    this.stop()
     this.intervalId = setInterval(() => this.flush(), this.options.interval)
     this.started = true
   }
