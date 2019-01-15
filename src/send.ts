@@ -37,7 +37,7 @@ export default ({
     ...(Object.keys(tags).length ? { tags } : {}),
     measurements: measurements.map(m => ({
       ...m,
-      ...(m.time ? { time: m.time.getTime() / 1000 } : {}),
+      ...(m.time ? { time: Math.floor(m.time.getTime() / 1000) } : {}),
     })),
   }),
   headers: {
