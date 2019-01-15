@@ -44,6 +44,7 @@ export default class Appoptics {
   }
   public async flush() {
     const measurements = this.measurements
+    this.measurements = []
     if (measurements.length <= 0) return
 
     return send({
@@ -53,10 +54,6 @@ export default class Appoptics {
       token: this.options.token,
       endpoint: this.options.endpoint,
     })
-      .then(result => {
-        this.measurements = []
-        return result
-      })
       .catch(err => {
         measurements.forEach(m => this.measurements.push(m))
         console.log('Appoptics', err)
