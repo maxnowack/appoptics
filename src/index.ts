@@ -19,8 +19,8 @@ export default class Appoptics {
     email,
     token,
     endpoint = defaultEndpoint,
-    interval = 10000,
-    tags = {},
+    interval,
+    tags,
   }: Options) {
     this.options = { email, token, endpoint, interval, tags }
   }
@@ -35,7 +35,7 @@ export default class Appoptics {
 
   public start() {
     this.stop()
-    this.intervalId = setInterval(() => this.flush(), this.options.interval)
+    this.intervalId = setInterval(() => this.flush(), this.options.interval || 10000)
     this.started = true
   }
   public stop() {
@@ -49,7 +49,7 @@ export default class Appoptics {
 
     return send({
       measurements,
-      tags: this.options.tags,
+      tags: this.options.tags || {},
       ...(this.options.email ? { email: this.options.email } : {}),
       token: this.options.token,
       endpoint: this.options.endpoint,
