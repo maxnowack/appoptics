@@ -4,9 +4,9 @@ export { default as send, Measurement, Tags } from './send'
 export interface Options {
   email?: string
   token: string
-  endpoint: string
-  interval: number
-  tags: Tags
+  endpoint?: string
+  interval?: number
+  tags?: Tags
 }
 
 export default class Appoptics {
