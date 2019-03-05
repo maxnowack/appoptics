@@ -45,4 +45,7 @@ export default ({
     'Content-Type': 'application/json; charset=utf-8',
     'User-Agent': 'appoptics-node',
   },
-}).then(r => r.json())
+}).then(r => r.json().catch(async () => {
+  const text = await r.text()
+  throw new Error(`Cannot parse result from appoptics: \n${text}`)
+}))
